@@ -2,8 +2,6 @@
 export ONOS_APPS="drivers,openflow,proxyarp,sdnip,reactive-routing"
 service onos start
 sleep 30
-sudo systemctl start onos.service
-sleep 30
 /opt/onos/karaf/bin/client "app activate org.onosproject.drivers"
 sleep 10
 /opt/onos/karaf/bin/client "app activate org.onosproject.openflow"

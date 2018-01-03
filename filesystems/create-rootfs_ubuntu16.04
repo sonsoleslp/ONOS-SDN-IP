@@ -80,6 +80,25 @@ echo 'JAVA_HOME=/usr/lib/jvm/java-8-oracle' >> ~/.bashrc
 export JAVA_HOME=/usr/lib/jvm/java-8-oracle
 mvn clean install -DskipTests
 
+ # Sonsoles
+cd /opt
+sudo adduser sdn --system --group
+sudo wget -c http://downloads.onosproject.org/release/onos-1.12.0.tar.gz 
+sudo tar xzf onos-1.12.0.tar.gz 
+sudo rm onos-1.12.0.tar.gz
+sudo mv onos-1.12.0 onos
+# sudo /opt/onos/bin/onos-service start
+sudo cp /opt/onos/init/onos.initd /etc/init.d/onos
+sudo cp /opt/onos/init/onos.conf /etc/init/onos.conf
+sudo cp /opt/onos/init/onos.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable onos
+cat >  /opt/onos/options <<EOF
+ONOS_USER=sdn
+ONOS_APPS=drivers,openflow,proxyarp,sdnip
+EOF
+
+
 # Install Quagga
 apt-get install -y patch build-essential gawk texinfo libreadline-dev
 echo '' >> ~/.bashrc

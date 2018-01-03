@@ -66,19 +66,28 @@ Author:      Raúl Álvarez Pinilla
     </if>
 
     <!-- Copy configuration files -->
-    <filetree seq="on_boot" root="/root/conf/">conf/ONOS/</filetree>
+    <!-- <filetree seq="on_boot" root="/root/conf/">conf/ONOS/</filetree> -->
+    <filetree seq="on_boot" root="/root/conf/">conf/ONOS/start-ONOS.sh</filetree>
+    <!-- <filetree seq="on_boot" root="/opt/onos/">conf/ONOS/options</filetree> -->
+    <filetree seq="on_boot" root="/opt/onos/config/network-cfg.json">conf/ONOS/network-cfg_ipv4.json</filetree>
 
     <!-- Configure and Start ONOS (IPv4) -->
-    <exec seq="start-ipv4" type="verbatim">
-        /root/conf/config-ONOS_ipv4.sh
-        nohup /root/conf/start-ONOS.sh
+    <exec seq="config-ONOS" type="verbatim">
+        echo 'alias onos-client=/opt/onos/karaf/bin/client' >> /root/.bashrc
+        sh /root/conf/start-ONOS.sh
     </exec>
 
+    <!-- Configure and Start ONOS (IPv4) -->
+   <!--  <exec seq="start-ipv4" type="verbatim">
+        /root/conf/config-ONOS_ipv4.sh
+        nohup /root/conf/start-ONOS.sh
+    </exec> -->
+
     <!-- Configure and Start ONOS (IPv6) -->
-    <exec seq="start-ipv6" type="verbatim">
+    <!-- <exec seq="start-ipv6" type="verbatim">
         /root/conf/config-ONOS_ipv6.sh
         nohup /root/conf/start-ONOS.sh
-    </exec>
+    </exec> -->
   </vm>
 
   <!-- Quagga Server -->
