@@ -74,6 +74,10 @@ Author:      Raúl Álvarez Pinilla
     <!-- Configure and Start ONOS (IPv4) -->
     <exec seq="config-ONOS" type="verbatim">
         echo 'alias onos-client=/opt/onos/karaf/bin/client' >> /root/.bashrc
+	sudo systemctl daemon-reload
+	sudo systemctl enable onos
+	echo "ONOS_USER=sdn"  > /opt/onos/options 
+	echo "ONOS_APPS=drivers,openflow,proxyarp,sdnip" >> /opt/onos/options 
         sh /root/conf/start-ONOS.sh
     </exec>
 
