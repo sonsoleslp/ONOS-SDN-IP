@@ -55,6 +55,11 @@ When the scenario is created, you can login to consoles with root:xxxx.
 
 **STEP 4: Start virtual scenario services**
 
+Start ONOS
+~~~
+$ sudo vnx -f ONOS-SDN-IP.xml -x config-ONOS
+~~~
+
 The virtual scenarios can be started with different configurations.
 ~~~
 $ sudo vnx -f ONOS-SDN-IP.xml -x CONF_TAG
