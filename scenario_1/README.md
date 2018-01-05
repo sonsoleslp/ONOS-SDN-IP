@@ -29,7 +29,7 @@ Index:
 
 **STEP 1: Clone this repository**
 ~~~
-$ git clone https://github.com/ralvarep/ONOS-SDN-IP.git
+$ git clone https://github.com/sonsoleslp/ONOS-SDN-IP.git
 ~~~
 
 **STEP 2: Build filesystem**
@@ -37,9 +37,7 @@ $ git clone https://github.com/ralvarep/ONOS-SDN-IP.git
 The virtual scenario has been configured using the filesystem in [copy-on-write (COW) mode](https://en.wikipedia.org/wiki/Copy-on-write). This allows you to use a single filesystem for all virtual machines, thereby optimizing the disk space occupied.
 
 Depending on your operating system, execute:
-~~~
-$ filesystems/create-rootfs_ubuntu14.04
-~~~
+
 ~~~
 $ filesystems/create-rootfs_ubuntu16.04
 ~~~
@@ -64,7 +62,7 @@ The virtual scenarios can be started with different configurations.
 ~~~
 $ sudo vnx -f ONOS-SDN-IP.xml -x CONF_TAG
 
- CONF_TAG => start-ipv4  (IPv4 BGP peering session between external routers and the internal router)
+ CONF_TAG => start-ipv4  (IPv4 BGP peering session between external routers and the internal router) <-
           => start-ipv6  (IPv6 BGP peering session between external routers and the internal router)
 ~~~
 When the scenario is created, you can login to consoles with root:xxxx.
@@ -73,12 +71,12 @@ When the scenario is created, you can login to consoles with root:xxxx.
 
 Enter in the ONOS console and execute the following command to check if ONOS is running:
 ~~~
-root@ONOS:~# ~/Applications/apache-karaf-3.0.5/bin/status
+root@ONOS:~# /opt/onos/karaf/bin/status
 Running ...
 ~~~
 To enter in the Karaf Console, execute:
 ~~~
-root@ONOS:~# ~/Applications/apache-karaf-3.0.5/bin/client
+root@ONOS:~# /opt/onos/karaf/bin/client
 Logging in as onos
 Welcome to Open Network Operating System (ONOS)!
      ____  _  ______  ____     
