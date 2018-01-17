@@ -68,7 +68,8 @@ Author:      Raúl Álvarez Pinilla
     <!-- Copy configuration files -->
     <!-- <filetree seq="on_boot" root="/root/conf/">conf/ONOS/</filetree> -->
 
-    <filetree seq="on_boot" root="/root/conf/">conf/ONOS/start-ONOS.sh</filetree>
+    <filetree seq="on_boot" root="/root/conf/">conf/ONOS/</filetree>
+
 <!--     <filetree seq="on_boot" root="/opt/onos/">conf/ONOS/options</filetree>
  -->    <filetree seq="on_boot" root="/opt/onos/config/network-cfg.json">conf/ONOS/network-cfg_ipv4.json</filetree>
     <filetree seq="on_boot" root="/opt/onos/config/network-cfg_ipv4.json">conf/ONOS/network-cfg_ipv4.json</filetree>
@@ -76,11 +77,13 @@ Author:      Raúl Álvarez Pinilla
     <!-- Configure and Start ONOS (IPv4) -->
     <exec seq="config-ONOS" type="verbatim">
         echo 'alias onos-client=/opt/onos/karaf/bin/client' >> /root/.bashrc
+         chmod 777 /root/conf/start-ONOS.sh
         /root/conf/start-ONOS.sh
     </exec>
 
     <!-- Configure and Start ONOS (IPv4) -->
      <exec seq="start-ipv4" type="verbatim">
+         chmod 777 /root/conf/config-ONOS_ipv4.sh
         /root/conf/config-ONOS_ipv4.sh
         nohup /root/conf/start-ONOS.sh
     </exec>
@@ -298,93 +301,6 @@ Author:      Raúl Álvarez Pinilla
         /root/conf/start-quagga.sh
     </exec>
   </vm>
-
-  <!-- S0 in AS100 -->
-  <vm name="s0" type="lxc" arch="x86_64">
-    <filesystem type="cow">../filesystems/vnx_rootfs_lxc_ubuntu64-16.04-v025-onos-1.11.1</filesystem>
-    <if id="1" net="net100-01"/>
-    <if id="2" net="net100-02"/>
-    <if id="3" net="net100-03"/>
-    <if id="4" net="net100-mgmt2"/>
-    <if id="5" net="net100-ctrl">
-      <ipv4>10.100.10.10/24</ipv4>
-      <ipv6>2001:db8:100:10::10/64</ipv6>
-    </if>
-    <if id="9" net="virbr0">
-      <ipv4>dhcp</ipv4>
-    </if>
-
-    <!-- Copy configuration files -->
-    <filetree seq="on_boot" root="/root/conf/">conf/s0/</filetree>
-
-    <!-- Configure Open vSwitch -->
-    <exec seq="on_boot" type="verbatim">/root/conf/config-ovs.sh</exec>
-  </vm>
-
-  <!-- S1 in AS100 -->
-  <vm name="s1" type="lxc" arch="x86_64">
-    <filesystem type="cow">../filesystems/vnx_rootfs_lxc_ubuntu64-16.04-v025-onos-1.11.1</filesystem>
-    <if id="1" net="net100-101"/>  
-    <if id="2" net="net100-01"/>
-    <if id="3" net="net100-12"/>
-    <if id="4" net="net100-13"/>
-    <if id="5" net="net100-ctrl">
-      <ipv4>10.100.10.11/24</ipv4>
-      <ipv6>2001:db8:100:10::11/64</ipv6>
-    </if>
-    <if id="9" net="virbr0">
-      <ipv4>dhcp</ipv4>
-    </if>
-
-    <!-- Copy configuration files -->
-    <filetree seq="on_boot" root="/root/conf/">conf/s1/</filetree>
-
-    <!-- Configure Open vSwitch -->
-    <exec seq="on_boot" type="verbatim">/root/conf/config-ovs.sh</exec>
-  </vm>
-
-  <!-- S2 in AS100 -->
-  <vm name="s2" type="lxc" arch="x86_64">
-    <filesystem type="cow">../filesystems/vnx_rootfs_lxc_ubuntu64-16.04-v025-onos-1.11.1</filesystem>
-    <if id="1" net="net100-102"/>
-    <if id="2" net="net100-02"/>
-    <if id="3" net="net100-12"/>
-    <if id="4" net="net100-23"/>
-    <if id="5" net="net100-ctrl">
-      <ipv4>10.100.10.12/24</ipv4>
-      <ipv6>2001:db8:100:10::12/64</ipv6>
-    </if>
-    <if id="9" net="virbr0">
-      <ipv4>dhcp</ipv4>
-    </if>
-
-    <!-- Copy configuration files -->
-    <filetree seq="on_boot" root="/root/conf/">conf/s2/</filetree>
-
-    <!-- Configure Open vSwitch -->
-    <exec seq="on_boot" type="verbatim">/root/conf/config-ovs.sh</exec>
-  </vm>
-
-  <!-- S3 in AS100 -->
-  <vm name="s3" type="lxc" arch="x86_64">
-    <filesystem type="cow">../filesystems/vnx_rootfs_lxc_ubuntu64-16.04-v025-onos-1.11.1</filesystem>
-    <if id="1" net="net100-103"/>
-    <if id="2" net="net100-03"/>
-    <if id="3" net="net100-13"/>
-    <if id="4" net="net100-23"/>
-    <if id="5" net="net100-ctrl">
-      <ipv4>10.100.10.13/24</ipv4>
-      <ipv6>2001:db8:100:10::13/64</ipv6>
-    </if>
-    <if id="9" net="virbr0">
-      <ipv4>dhcp</ipv4>
-    </if>
-
-    <!-- Copy configuration files -->
-    <filetree seq="on_boot" root="/root/conf/">conf/s3/</filetree>
-
-    <!-- Configure Open vSwitch -->
-    <exec seq="on_boot" type="verbatim">/root/conf/config-ovs.sh</exec>
-  </vm>
+  <!-- here -->
 
 </vnx>

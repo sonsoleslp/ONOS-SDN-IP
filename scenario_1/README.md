@@ -34,18 +34,17 @@ $ git clone https://github.com/sonsoleslp/ONOS-SDN-IP.git
 
 **STEP 2: Build filesystem**
 
-The virtual scenario has been configured using the filesystem in [copy-on-write (COW) mode](https://en.wikipedia.org/wiki/Copy-on-write). This allows you to use a single filesystem for all virtual machines, thereby optimizing the disk space occupied.
 
-Depending on your operating system, execute:
 
 ~~~
-$ filesystems/create-rootfs_ubuntu16.04
+$ cd ONOS-SDN-IP/filesystems
+$  vnx_download_rootfs -r vnx_rootfs_lxc_ubuntu64-16.04-v025-onos-1.11.1.tgz
 ~~~
 This step takes about 20-30 min. It will download all the necessary packages of the demo scenario.
 
 **STEP 3: Create virtual scenario**
 
-Move to a specific scenario folder and execute:
+Move to the specific folder for the scenario  and execute:
 ~~~
 $ sudo vnx -f ONOS-SDN-IP.xml -t
 ~~~
@@ -60,10 +59,7 @@ $ sudo vnx -f ONOS-SDN-IP.xml -x config-ONOS
 
 The virtual scenarios can be started with different configurations.
 ~~~
-$ sudo vnx -f ONOS-SDN-IP.xml -x CONF_TAG
-
- CONF_TAG => start-ipv4  (IPv4 BGP peering session between external routers and the internal router) <-
-          => start-ipv6  (IPv6 BGP peering session between external routers and the internal router)
+$ sudo vnx -f ONOS-SDN-IP.xml -x start-ipv4 
 ~~~
 When the scenario is created, you can login to consoles with root:xxxx.
 
