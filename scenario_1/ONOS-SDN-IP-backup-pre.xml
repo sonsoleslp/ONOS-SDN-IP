@@ -37,29 +37,46 @@ Author:      Raúl Álvarez Pinilla
   <!-- Net103 (10.103.0.0/24) (2001:db8:103::/64) -->
   <net name="net103" mode="virtual_bridge"/>
   <!-- Net100-XXX (10.100.0.0/24) (2001:db8:100::/64) -->
-
-  <net name="net100-ctrl" mode="virtual_bridge"/> 
+  <net name="net100-101" mode="virtual_bridge"/>
+  <net name="net100-102" mode="virtual_bridge"/>
+  <net name="net100-103" mode="virtual_bridge"/>
+  <net name="net100-01" mode="virtual_bridge"/>
+  <net name="net100-02" mode="virtual_bridge"/>
+  <net name="net100-03" mode="virtual_bridge"/>
+  <net name="net100-12" mode="virtual_bridge"/>
+  <net name="net100-13" mode="virtual_bridge"/>
+  <net name="net100-23" mode="virtual_bridge"/>
+  <net name="net100-ctrl" mode="virtual_bridge"/>
   <net name="net100-mgmt1" mode="virtual_bridge"/>
   <net name="net100-mgmt2" mode="virtual_bridge"/>
   <net name="s0" mode="openvswitch" hwaddr="00:00:00:00:01:00" controller='tcp:10.100.10.1:6633' of_version="OpenFlow10" fail_mode='secure'>
+    <connection name='s0-s1' net='net100-01'/>
+    <connection name='s0-s2' net='net100-02'/>
+    <connection name='s0-s3' net='net100-03'/>
     <connection name='s0-mgmt2' net='net100-mgmt2'/>
     <connection name='s0-ctrl' net='net100-ctrl'/>
   </net>
   <net name="s1" mode="openvswitch" hwaddr="00:00:00:00:01:01" controller='tcp:10.100.10.1:6633' of_version="OpenFlow10" fail_mode='secure'>
-    <connection name='s1-s0' net='s0'/>
+    <connection name='s1-AS-101' net='net100-101'/>
+    <connection name='s1-s0' net='net100-01'/>
+    <connection name='s1-s2' net='net100-12'/>
+    <connection name='s1-s3' net='net100-13'/>
     <connection name='s1-ctrl' net='net100-ctrl'/>
   </net>
   <net name="s2" mode="openvswitch" hwaddr="00:00:00:00:01:02" controller='tcp:10.100.10.1:6633' of_version="OpenFlow10" fail_mode='secure'>
-    <connection name='s2-s0' net='s0'/>
-    <connection name='s2-s1' net='s1'/>
+    <connection name='s2-AS-102' net='net100-102'/>
+    <connection name='s2-s0' net='net100-02'/>
+    <connection name='s2-s1' net='net100-12'/>
+    <connection name='s2-s3' net='net100-23'/>
     <connection name='s2-ctrl' net='net100-ctrl'/>
   </net>  
   <net name="s3" mode="openvswitch" hwaddr="00:00:00:00:01:03" controller='tcp:10.100.10.1:6633' of_version="OpenFlow10" fail_mode='secure'>
-    <connection name='s3-s0' net='s0'/>
-    <connection name='s3-s1' net='s1'/>
-    <connection name='s3-s2' net='s2'/>
+    <connection name='s3-AS-103' net='net100-103'/>
+    <connection name='s3-s0' net='net100-03'/>
+    <connection name='s3-s1' net='net100-13'/>
+    <connection name='s3-s2' net='net100-23'/>
     <connection name='s3-ctrl' net='net100-ctrl'/>
-  </net>      
+    </net>      
   <!-- ONOS -->
   <vm name="ONOS" type="lxc" arch="x86_64">
     <filesystem type="cow">../filesystems/vnx_rootfs_lxc_ubuntu64-16.04-v025-onos-1.11.1</filesystem>
@@ -196,7 +213,7 @@ Author:      Raúl Álvarez Pinilla
       <ipv4>10.101.0.1/24</ipv4>
       <ipv6>2001:db8:101::1/64</ipv6>
     </if>
-    <if id="2" net="s1">
+    <if id="2" net="net100-101">
       <ipv4>10.100.101.2/24</ipv4>
       <ipv6>2001:db8:100:101::2/64</ipv6>
     </if>
@@ -237,7 +254,7 @@ Author:      Raúl Álvarez Pinilla
       <ipv4>10.102.0.1/24</ipv4>
       <ipv6>2001:db8:102::1/64</ipv6>
     </if>
-    <if id="2" net="s2">
+    <if id="2" net="net100-102">
       <ipv4>10.100.102.2/24</ipv4>  
       <ipv6>2001:db8:100:102::2/64</ipv6>
     </if>
@@ -278,7 +295,7 @@ Author:      Raúl Álvarez Pinilla
       <ipv4>10.103.0.1/24</ipv4>
       <ipv6>2001:db8:103::1/64</ipv6>
     </if>
-    <if id="2" net="s3">
+    <if id="2" net="net100-103">
       <ipv4>10.100.103.2/24</ipv4>  
       <ipv6>2001:db8:100:103::2/64</ipv6>
     </if>
