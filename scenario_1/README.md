@@ -58,19 +58,19 @@ When the scenario is created, you can login to consoles with root:xxxx.
 
 **STEP 4: Start virtual scenario services**
 
+The virtual scenarios can be started with different configurations.
+~~~
+$ sudo vnx -f ONOS-SDN-IP.xml -x start-ipv4 
+~~~
+
 Start ONOS
 ~~~
 $ sudo vnx -f ONOS-SDN-IP.xml -x config-ONOS
 ~~~
 
-The virtual scenarios can be started with different configurations.
-~~~
-$ sudo vnx -f ONOS-SDN-IP.xml -x start-ipv4 
-~~~
-When the scenario is created, you can login to consoles with root:xxxx.
 
+**STEP 5: Check quagga**
 
-**STEP 5: Check quagga **
 From quagga or any of the routers you can access the zebra daemon (password: zebra):
 ```
 telnet localhost 2601
@@ -82,7 +82,7 @@ show ip route
 
 Also, you can access the bgpd daemon:
 ```
-telnet localhost 2603
+telnet localhost 2605
 ```
 
 
