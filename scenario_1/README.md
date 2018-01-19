@@ -24,7 +24,13 @@ Index:
 
 ![Scenario](https://raw.githubusercontent.com/ralvarep/ONOS-SDN-IP/master/scenario_1/img/scenario.png)
 
+## Before you start
 
+Update vnx
+
+```
+sudo vnx_update
+```
 ## Usage
 
 **STEP 1: Clone this repository**

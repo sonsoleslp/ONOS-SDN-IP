@@ -327,6 +327,14 @@ Contributors:
         /root/conf/start-quagga.sh
     </exec>
   </vm>
-  <!-- here -->
-
+  <!-- switches were here -->
+  <host>
+      <hostif net="net100-ctrl">
+         <ipv4>10.100.10.122/24</ipv4>
+      </hostif>
+      <hostif net="net100-mgmt1">
+         <ipv4>10.100.11.122/24</ipv4>
+      </hostif>
+      <hostif net="net100-mgmt2"/>
+    </host>
 </vnx>
