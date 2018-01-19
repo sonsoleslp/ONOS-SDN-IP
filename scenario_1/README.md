@@ -63,7 +63,24 @@ $ sudo vnx -f ONOS-SDN-IP.xml -x start-ipv4
 ~~~
 When the scenario is created, you can login to consoles with root:xxxx.
 
-**STEP 5: Check ONOS (SDN Controller)**
+
+**STEP 5: Check quagga **
+From quagga or any of the routers you can access the zebra daemon (password: zebra):
+```
+telnet localhost 2601
+```
+And type:
+```
+show ip route
+```
+
+Also, you can access the bgpd daemon:
+```
+telnet localhost 2603
+```
+
+
+**STEP 6: Check ONOS (SDN Controller)**
 
 Enter in the ONOS console and execute the following command to check if ONOS is running:
 ~~~
@@ -162,7 +179,7 @@ In addition, ONOS GUI is avaible from your host through [http://10.250.0.2:8181/
 ![ONOS-GUI](https://raw.githubusercontent.com/ralvarep/ONOS-SDN-IP/master/scenario_1/img/ONOS-GUI.jpg)
 
 
-**STEP 6: Connectivity Test between clients**
+**STEP 7: Connectivity Test between clients**
 
 Now you can test the connectivity between the clients. For example, entering in the client-101 console:
 ~~~
