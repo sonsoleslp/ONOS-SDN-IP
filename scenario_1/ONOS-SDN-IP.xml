@@ -7,9 +7,16 @@
 
 Name:        ONOS-SDN-IP
 
-Description: Virtual scenario of SDN-IP service (ONOS/CORD Project)
+Description: Virtual scenario of SDN-IP service (ONOS/CORD Project) + TTRC (MUIT)
 
 Author:      Raúl Álvarez Pinilla
+
+Contributors: 
+            Carolina Alonso López
+            Gregorio Juliana Quirós
+            Sonsoles López Pernas
+            Álvaro Rodríguez Villalba
+
 -->
 
 <vnx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

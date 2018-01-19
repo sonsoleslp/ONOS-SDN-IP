@@ -38,9 +38,9 @@ $ git clone https://github.com/sonsoleslp/ONOS-SDN-IP.git
 
 ~~~
 $ cd ONOS-SDN-IP/filesystems
-$  vnx_download_rootfs -r vnx_rootfs_lxc_ubuntu64-16.04-v025-onos-1.11.1.tgz
+$ vnx_download_rootfs -r vnx_rootfs_lxc_ubuntu64-16.04-v025-onos-1.11.1.tgz
 ~~~
-This step takes about 20-30 min. It will download all the necessary packages of the demo scenario.
+
 
 **STEP 3: Create virtual scenario**
 
