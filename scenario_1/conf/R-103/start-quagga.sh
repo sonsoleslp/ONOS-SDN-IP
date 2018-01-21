@@ -1,5 +1,5 @@
 #!/bin/bash
-
+chmod 777 /var/log/quagga/
 pkill -f zebra
 pkill -f bgpd
 rm -f /var/log/quagga/*.log
