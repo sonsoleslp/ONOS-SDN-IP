@@ -47,25 +47,25 @@ Contributors:
   <net name="net100-101" mode="openvswitch"/>
   <net name="net100-102" mode="openvswitch"/>
   <net name="net100-103" mode="openvswitch"/>
-
-  <net name="net100-ctrl" mode="virtual_bridge"/> 
+  <net name="LanMgmt" mode="virtual_bridge"/>
+  <!--<net name="net100-ctrl" mode="virtual_bridge"/> 
   <net name="net100-mgmt1" mode="virtual_bridge"/>
-  <net name="net100-mgmt2" mode="virtual_bridge"/>
+  <net name="net100-mgmt2" mode="virtual_bridge"/>-->
 
   <net name="s0" mode="openvswitch" hwaddr="00:00:00:00:01:00" controller='tcp:10.100.10.1:6633' of_version="OpenFlow13" fail_mode='secure'>
-    <connection name='s0-mgmt2' net='net100-mgmt2'/>
-    <connection name='s0-ctrl' net='net100-ctrl'/>
+    <!--<connection name='s0-mgmt2' net='net100-mgmt2'/>-->
+    <!--<connection name='s0-ctrl' net='net100-ctrl'/>-->
  
   </net>
   <net name="s1" mode="openvswitch" hwaddr="00:00:00:00:01:01" controller='tcp:10.100.10.1:6633' of_version="OpenFlow13" fail_mode='secure'>
     <connection name='s1-s0' net='s0'/>
-    <connection name='s1-ctrl' net='net100-ctrl'/>
+    <!-- <connection name='s1-ctrl' net='net100-ctrl'/>-->
     <connection name='s1-net100-101' net='net100-101'/>
   </net>
   <net name="s2" mode="openvswitch" hwaddr="00:00:00:00:01:02" controller='tcp:10.100.10.1:6633' of_version="OpenFlow13" fail_mode='secure'>
     <connection name='s2-s0' net='s0'/>
     <connection name='s2-s1' net='s1'/>
-    <connection name='s2-ctrl' net='net100-ctrl'/>
+    <!--<connection name='s2-ctrl' net='net100-ctrl'/>-->
     <connection name='s2-net100-102' net='net100-102'/>
 
   </net>  
@@ -73,19 +73,24 @@ Contributors:
     <connection name='s3-s0' net='s0'/>
     <connection name='s3-s1' net='s1'/>
     <connection name='s3-s2' net='s2'/>
-    <connection name='s3-ctrl' net='net100-ctrl'/>
+    <!--<connection name='s3-ctrl' net='net100-ctrl'/>-->
     <connection name='s3-net100-103' net='net100-103'/>
   </net>      
   <!-- ONOS -->
   <vm name="ONOS" type="lxc" arch="x86_64">
     <filesystem type="cow">../filesystems/vnx_rootfs_lxc_ubuntu64-16.04-v025-onos-1.11.1</filesystem>
-    <if id="1" net="net100-ctrl">
+    <!--<if id="1" net="net100-ctrl">
       <ipv4>10.100.10.1/24</ipv4>
       <ipv6>2001:db8:100:10::1/64</ipv6>
     </if>
     <if id="2" net="net100-mgmt1">
       <ipv4>10.100.11.1/24</ipv4>
       <ipv6>2001:db8:100:11::1/64</ipv6>
+    </if>-->
+     <if id="2" net="s0"/>
+    <if id="1" net="LanMgmt">
+      <ipv4>10.100.10.1/24</ipv4>
+      <ipv6>2001:db8:100:10::1/64</ipv6>
     </if>
     <if id="9" net="virbr0">
       <ipv4>dhcp</ipv4>
@@ -124,11 +129,15 @@ Contributors:
   <!-- Quagga Server -->
   <vm name="quagga" type="lxc" arch="x86_64">
     <filesystem type="cow">../filesystems/vnx_rootfs_lxc_ubuntu64-16.04-v025-onos-1.11.1</filesystem>
-    <if id="1" net="net100-mgmt1">
+    <!--<if id="1" net="net100-mgmt1">
       <ipv4>10.100.11.2/24</ipv4>
       <ipv6>2001:db8:100:11::2/64</ipv6>
     </if>
-    <if id="2" net="net100-mgmt2"/>
+    <if id="2" net="net100-mgmt2"/>-->
+    <if id="2" net="LanMgmt">
+      <ipv4>10.100.10.123/24</ipv4>
+      <ipv6>2001:db8:100:10::123/64</ipv6>
+    </if>
     <if id="9" net="virbr0">
       <ipv4>dhcp</ipv4>
     </if>
@@ -329,12 +338,21 @@ Contributors:
   </vm>
   <!-- switches were here -->
   <host>
-      <hostif net="net100-ctrl">
+      <!--<hostif net="net100-ctrl">
          <ipv4>10.100.10.122/24</ipv4>
       </hostif>
       <hostif net="net100-mgmt1">
          <ipv4>10.100.11.122/24</ipv4>
       </hostif>
-      <hostif net="net100-mgmt2"/>
-    </host>
+      <hostif net="net100-mgmt2"/>-->
+    
+    <hostif net="LanMgmt">
+      <ipv4>10.100.10.125/24</ipv4>
+      <ipv6>2001:db8:100:10::125/64</ipv6>
+    </hostif>
+  </host>  
+
+ 
+
+
 </vnx>
