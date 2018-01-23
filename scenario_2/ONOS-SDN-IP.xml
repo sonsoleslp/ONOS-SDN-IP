@@ -64,7 +64,7 @@ Author:      Raúl Álvarez Pinilla
   </net>
   <!-- ONOS -->
   <vm name="ONOS" type="lxc" arch="x86_64">
-    <filesystem type="cow">../filesystems/rootfs_lxc_ubuntu64-ONOS-SDN-IP</filesystem>
+    <filesystem type="cow">../filesystems/vnx_rootfs_lxc_ubuntu64-16.04-v025-onos-1.11.1</filesystem>
     <mem>2G</mem>
     <if id="2" net="LanMgmt">
       <ipv4>10.100.10.1/24</ipv4>
@@ -84,7 +84,7 @@ Author:      Raúl Álvarez Pinilla
 
   <!-- Quagga Server -->
   <vm name="quagga" type="lxc" arch="x86_64">
-    <filesystem type="cow">../filesystems/rootfs_lxc_ubuntu64-ONOS-SDN-IP</filesystem>
+    <filesystem type="cow">../filesystems/vnx_rootfs_lxc_ubuntu64-16.04-v025-onos-1.11.1</filesystem>
     <mem>2G</mem>
     <if id="1" net="s1"/>
     <if id="2" net="LanMgmt">
@@ -107,7 +107,7 @@ Author:      Raúl Álvarez Pinilla
 
   <!-- CLIENT AS100-1 -->
   <vm name="client-100-1" type="lxc" arch="x86_64">
-    <filesystem type="cow">../filesystems/rootfs_lxc_ubuntu64-ONOS-SDN-IP</filesystem>
+    <filesystem type="cow">../filesystems/vnx_rootfs_lxc_ubuntu64-16.04-v025-onos-1.11.1</filesystem>
     <mem>2G</mem>
     <if id="1" net="net100-1">
       <ipv4>10.100.1.2/24</ipv4>
@@ -126,7 +126,7 @@ Author:      Raúl Álvarez Pinilla
 
   <!-- CLIENT AS100-2 -->
   <vm name="client-100-2" type="lxc" arch="x86_64">
-    <filesystem type="cow">../filesystems/rootfs_lxc_ubuntu64-ONOS-SDN-IP</filesystem>
+    <filesystem type="cow">../filesystems/vnx_rootfs_lxc_ubuntu64-16.04-v025-onos-1.11.1</filesystem>
     <mem>2G</mem>
     <if id="1" net="net100-2">
       <ipv4>10.100.2.2/24</ipv4>
@@ -145,7 +145,7 @@ Author:      Raúl Álvarez Pinilla
 
   <!-- CLIENT AS101 -->
   <vm name="client-101" type="lxc" arch="x86_64">
-    <filesystem type="cow">../filesystems/rootfs_lxc_ubuntu64-ONOS-SDN-IP</filesystem>
+    <filesystem type="cow">../filesystems/vnx_rootfs_lxc_ubuntu64-16.04-v025-onos-1.11.1</filesystem>
     <mem>2G</mem>
     <if id="1" net="net101">
       <ipv4>10.101.0.2/24</ipv4>
@@ -164,7 +164,7 @@ Author:      Raúl Álvarez Pinilla
 
   <!-- CLIENT AS102 -->
   <vm name="client-102" type="lxc" arch="x86_64">
-    <filesystem type="cow">../filesystems/rootfs_lxc_ubuntu64-ONOS-SDN-IP</filesystem>
+    <filesystem type="cow">../filesystems/vnx_rootfs_lxc_ubuntu64-16.04-v025-onos-1.11.1</filesystem>
     <mem>2G</mem>
     <if id="1" net="net102">
       <ipv4>10.102.0.2/24</ipv4>
@@ -183,7 +183,7 @@ Author:      Raúl Álvarez Pinilla
 
   <!-- ROUTER AS101 -->
   <vm name="R-101" type="lxc" arch="x86_64">
-    <filesystem type="cow">../filesystems/rootfs_lxc_ubuntu64-ONOS-SDN-IP</filesystem>
+    <filesystem type="cow">../filesystems/vnx_rootfs_lxc_ubuntu64-16.04-v025-onos-1.11.1</filesystem>
     <mem>2G</mem>
     <if id="1" net="net101">
       <ipv4>10.101.0.1/24</ipv4>
@@ -217,7 +217,7 @@ Author:      Raúl Álvarez Pinilla
 
   <!-- ROUTER AS102 -->
   <vm name="R-102" type="lxc" arch="x86_64">
-    <filesystem type="cow">../filesystems/rootfs_lxc_ubuntu64-ONOS-SDN-IP</filesystem>
+    <filesystem type="cow">../filesystems/vnx_rootfs_lxc_ubuntu64-16.04-v025-onos-1.11.1</filesystem>
     <mem>2G</mem>
     <if id="1" net="net102">
       <ipv4>10.102.0.1/24</ipv4>
