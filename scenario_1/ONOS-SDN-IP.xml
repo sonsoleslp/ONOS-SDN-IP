@@ -318,14 +318,6 @@ Contributors:
   </vm>
   <!-- switches were here -->
   <host>
-      <!--<hostif net="net100-ctrl">
-         <ipv4>10.100.10.122/24</ipv4>
-      </hostif>
-      <hostif net="net100-mgmt1">
-         <ipv4>10.100.11.122/24</ipv4>
-      </hostif>
-      <hostif net="net100-mgmt2"/>-->
-    
     <hostif net="LanMgmt">
       <ipv4>10.100.10.3/24</ipv4>
       <ipv6>2001:db8:100:10::3/64</ipv6>

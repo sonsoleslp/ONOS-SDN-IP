@@ -29,63 +29,68 @@ Author:      Raúl Álvarez Pinilla
 
   <!-- NET DEFINITION -->
   <!-- virbr0 (192.168.122.0/24) -->
-  <net name="virbr0" mode="virtual_bridge" managed="no"/>
+  <net name="virbr0" mode="openvswitch" managed="no"/>
   <!-- Net101 (10.101.0.0/24) (2001:db8:101::/64) -->
-  <net name="net101" mode="virtual_bridge"/>
+  <net name="net101" mode="openvswitch"/>
   <!-- Net102 (10.102.0.0/24) (2001:db8:102::/64) -->
-  <net name="net102" mode="virtual_bridge"/>
+  <net name="net102" mode="openvswitch"/>
   <!-- Net100-XXX (10.100.0.0/24) (2001:db8:100::/64) -->
-  <net name="net100-101" mode="virtual_bridge"/>
-  <net name="net100-102" mode="virtual_bridge"/>
-  <net name="net100-1-11" mode="virtual_bridge"/>
-  <net name="net100-1-12" mode="virtual_bridge"/>
-  <net name="net100-1-13" mode="virtual_bridge"/>
-  <net name="net100-1-14" mode="virtual_bridge"/>
-  <net name="net100-2-11" mode="virtual_bridge"/>
-  <net name="net100-2-12" mode="virtual_bridge"/>
-  <net name="net100-2-13" mode="virtual_bridge"/>
-  <net name="net100-2-14" mode="virtual_bridge"/>
-  <net name="net100-1" mode="virtual_bridge"/> <!-- Net 100-1 (10.100.1.0/24) (2001:db8:100:1:/64)-->
-  <net name="net100-2" mode="virtual_bridge"/> <!-- Net 100-2 (10.100.2.0/24) (2001:db8:100:2:/64)-->
-  <net name="net100-ctrl" mode="virtual_bridge"/>
-  <net name="net100-mgmt1" mode="virtual_bridge"/>
-  <net name="net100-mgmt2" mode="virtual_bridge"/>
-
+  <net name="net100-101" mode="openvswitch"/>
+  <net name="net100-102" mode="openvswitch"/>
+  <net name="net100-1" mode="openvswitch"/> <!-- Net 100-1 (10.100.1.0/24) (2001:db8:100:1:/64)-->
+  <net name="net100-2" mode="openvswitch"/> <!-- Net 100-2 (10.100.2.0/24) (2001:db8:100:2:/64)-->
+  <net name="LanMgmt" mode="virtual_bridge"/>
+  <net name="s1" mode="openvswitch" hwaddr="00:00:00:00:00:01" controller='tcp:10.100.10.1:6633' of_version="OpenFlow13" fail_mode='secure'/>
+  <net name="s2" mode="openvswitch" hwaddr="00:00:00:00:00:01" controller='tcp:10.100.10.1:6633' of_version="OpenFlow13" fail_mode='secure'/>
+  <net name="s11" mode="openvswitch" hwaddr="00:00:00:00:00:11" controller='tcp:10.100.10.1:6633' of_version="OpenFlow13" fail_mode='secure'>
+    <connection name='s1-s11' net='s1'/>
+    <connection name='s2-s11' net='s2'/>
+    <connection name='s11-net100-101' net='net100-101'/>
+  </net>
+  <net name="s12" mode="openvswitch" hwaddr="00:00:00:00:00:12" controller='tcp:10.100.10.1:6633' of_version="OpenFlow13" fail_mode='secure'>
+    <connection name='s1-s12' net='s1'/>
+    <connection name='s2-s12' net='s2'/>
+    <connection name='s12-net100-102' net='net100-102'/>
+  </net>
+  <net name="s13" mode="openvswitch" hwaddr="00:00:00:00:00:13" controller='tcp:10.100.10.1:6633' of_version="OpenFlow13" fail_mode='secure'>
+    <connection name='s1-s13' net='s1'/>
+    <connection name='s2-s13' net='s2'/>
+    <connection name='s13-net100-1' net='net100-1'/>
+  </net>
+  <net name="s14" mode="openvswitch" hwaddr="00:00:00:00:00:14" controller='tcp:10.100.10.1:6633' of_version="OpenFlow13" fail_mode='secure'>
+    <connection name='s1-s14' net='s1'/>
+    <connection name='s2-s14' net='s2'/>
+    <connection name='s14-net100-2' net='net100-2'/>
+  </net>
   <!-- ONOS -->
   <vm name="ONOS" type="lxc" arch="x86_64">
     <filesystem type="cow">../filesystems/rootfs_lxc_ubuntu64-ONOS-SDN-IP</filesystem>
     <mem>2G</mem>
-    <if id="1" net="net100-ctrl">
+    <if id="2" net="LanMgmt">
       <ipv4>10.100.10.1/24</ipv4>
       <ipv6>2001:db8:100:10::1/64</ipv6>
     </if>
-    <if id="2" net="net100-mgmt1">
-      <ipv4>10.100.11.1/24</ipv4>
-      <ipv6>2001:db8:100:11::1/64</ipv6>
-    </if>
+    
     <if id="9" net="virbr0">
       <ipv4>dhcp</ipv4>
     </if>
 
-    <!-- Copy configuration files -->
-    <filetree seq="on_boot" root="/root/conf/">conf/ONOS/</filetree>
-
-    <!-- Configure ONOS -->
-    <exec seq="on_boot" type="verbatim">/root/conf/config-ONOS.sh</exec>
-
-    <!-- Start ONOS -->
-    <exec seq="on_boot" type="verbatim">nohup /root/conf/start-ONOS.sh</exec>
+    <exec seq="config-ONOS" type="verbatim">
+        echo 'alias onos-client=/opt/onos/karaf/bin/client' >> /root/.bashrc
+         chmod 777 /root/conf/start-ONOS.sh
+        /root/conf/start-ONOS.sh
+    </exec>
   </vm>
 
   <!-- Quagga Server -->
   <vm name="quagga" type="lxc" arch="x86_64">
     <filesystem type="cow">../filesystems/rootfs_lxc_ubuntu64-ONOS-SDN-IP</filesystem>
     <mem>2G</mem>
-    <if id="1" net="net100-mgmt1">
-      <ipv4>10.100.11.2/24</ipv4>
-      <ipv6>2001:db8:100:11::2/64</ipv6>
+    <if id="1" net="s1"/>
+    <if id="2" net="LanMgmt">
+      <ipv4>10.100.10.2/24</ipv4>
+      <ipv6>2001:db8:100:10::2/64</ipv6>
     </if>
-    <if id="2" net="net100-mgmt2"/>
     <if id="9" net="virbr0">
       <ipv4>dhcp</ipv4>
     </if>
@@ -244,139 +249,11 @@ Author:      Raúl Álvarez Pinilla
     </exec>
   </vm>
 
-  <!-- S1 in AS100 -->
-  <vm name="s1" type="lxc" arch="x86_64">
-    <filesystem type="cow">../filesystems/rootfs_lxc_ubuntu64-ONOS-SDN-IP</filesystem>
-    <mem>2G</mem>
-    <if id="1" net="net100-1-11"/>
-    <if id="2" net="net100-1-12"/>
-    <if id="3" net="net100-1-13"/>
-    <if id="4" net="net100-1-14"/>
-    <if id="5" net="net100-mgmt2"/>
-    <if id="6" net="net100-ctrl">
-      <ipv4>10.100.10.11/24</ipv4>
-      <ipv6>2001:db8:100:10::11/64</ipv6>
-    </if>
-    <if id="9" net="virbr0">
-      <ipv4>dhcp</ipv4>
-    </if>
 
-    <!-- Copy configuration files -->
-    <filetree seq="on_boot" root="/root/conf/">conf/s1/</filetree>
-
-    <!-- Configure Open vSwitch -->
-    <exec seq="on_boot" type="verbatim">/root/conf/config-ovs.sh</exec>
-  </vm>
-
-  <!-- S2 in AS100 -->
-  <vm name="s2" type="lxc" arch="x86_64">
-    <filesystem type="cow">../filesystems/rootfs_lxc_ubuntu64-ONOS-SDN-IP</filesystem>
-    <mem>2G</mem>
-    <if id="1" net="net100-2-11"/>
-    <if id="2" net="net100-2-12"/>
-    <if id="3" net="net100-2-13"/>
-    <if id="4" net="net100-2-14"/>
-    <if id="5" net="net100-ctrl">
-      <ipv4>10.100.10.12/24</ipv4>
-      <ipv6>2001:db8:100:10::12/64</ipv6>
-    </if>
-    <if id="9" net="virbr0">
-      <ipv4>dhcp</ipv4>
-    </if>
-
-    <!-- Copy configuration files -->
-    <filetree seq="on_boot" root="/root/conf/">conf/s2/</filetree>
-
-    <!-- Configure Open vSwitch -->
-    <exec seq="on_boot" type="verbatim">/root/conf/config-ovs.sh</exec>
-  </vm>
-
-  <!-- S11 in AS100 -->
-  <vm name="s11" type="lxc" arch="x86_64">
-    <filesystem type="cow">../filesystems/rootfs_lxc_ubuntu64-ONOS-SDN-IP</filesystem>
-    <mem>2G</mem>
-    <if id="1" net="net100-101"/>
-    <if id="2" net="net100-1-11"/>
-    <if id="3" net="net100-2-11"/>
-    <if id="4" net="net100-ctrl">
-      <ipv4>10.100.10.111/24</ipv4>
-      <ipv6>2001:db8:100:10::111/64</ipv6>
-    </if>
-    <if id="9" net="virbr0">
-      <ipv4>dhcp</ipv4>
-    </if>
-
-    <!-- Copy configuration files -->
-    <filetree seq="on_boot" root="/root/conf/">conf/s11/</filetree>
-
-    <!-- Configure Open vSwitch -->
-    <exec seq="on_boot" type="verbatim">/root/conf/config-ovs.sh</exec>
-  </vm>
-
-  <!-- S12 in AS100 -->
-  <vm name="s12" type="lxc" arch="x86_64">
-    <filesystem type="cow">../filesystems/rootfs_lxc_ubuntu64-ONOS-SDN-IP</filesystem>
-    <mem>2G</mem>
-    <if id="1" net="net100-102"/>
-    <if id="2" net="net100-1-12"/>
-    <if id="3" net="net100-2-12"/>
-    <if id="4" net="net100-ctrl">
-      <ipv4>10.100.10.112/24</ipv4>
-      <ipv6>2001:db8:100:10::112/64</ipv6>
-    </if>
-    <if id="9" net="virbr0">
-      <ipv4>dhcp</ipv4>
-    </if>
-
-    <!-- Copy configuration files -->
-    <filetree seq="on_boot" root="/root/conf/">conf/s12/</filetree>
-
-    <!-- Configure Open vSwitch -->
-    <exec seq="on_boot" type="verbatim">/root/conf/config-ovs.sh</exec>
-  </vm>
-
-  <!-- S13 in AS100 -->
-  <vm name="s13" type="lxc" arch="x86_64">
-    <filesystem type="cow">../filesystems/rootfs_lxc_ubuntu64-ONOS-SDN-IP</filesystem>
-    <mem>2G</mem>
-    <if id="1" net="net100-1"/>
-    <if id="2" net="net100-1-13"/>
-    <if id="3" net="net100-2-13"/>
-    <if id="4" net="net100-ctrl">
-      <ipv4>10.100.10.113/24</ipv4>
-      <ipv6>2001:db8:100:10::113/64</ipv6>
-    </if>
-    <if id="9" net="virbr0">
-      <ipv4>dhcp</ipv4>
-    </if>
-
-    <!-- Copy configuration files -->
-    <filetree seq="on_boot" root="/root/conf/">conf/s13/</filetree>
-
-    <!-- Configure Open vSwitch -->
-    <exec seq="on_boot" type="verbatim">/root/conf/config-ovs.sh</exec>
-  </vm>
-
-  <!-- S14 in AS100 -->
-  <vm name="s14" type="lxc" arch="x86_64">
-    <filesystem type="cow">../filesystems/rootfs_lxc_ubuntu64-ONOS-SDN-IP</filesystem>
-    <mem>2G</mem>
-    <if id="1" net="net100-2"/>
-    <if id="2" net="net100-1-14"/>
-    <if id="3" net="net100-2-14"/>
-    <if id="4" net="net100-ctrl">
-      <ipv4>10.100.10.114/24</ipv4>
-      <ipv6>2001:db8:100:10::114/64</ipv6>
-    </if>
-    <if id="9" net="virbr0">
-      <ipv4>dhcp</ipv4>
-    </if>
-
-    <!-- Copy configuration files -->
-    <filetree seq="on_boot" root="/root/conf/">conf/s14/</filetree>
-
-    <!-- Configure Open vSwitch -->
-    <exec seq="on_boot" type="verbatim">/root/conf/config-ovs.sh</exec>
-  </vm>
-
+   <host>
+    <hostif net="LanMgmt">
+      <ipv4>10.100.10.3/24</ipv4>
+      <ipv6>2001:db8:100:10::3/64</ipv6>
+    </hostif>
+  </host>  
 </vnx>

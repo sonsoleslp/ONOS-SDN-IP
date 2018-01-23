@@ -1,0 +1,134 @@
+  <!-- S1 in AS100 -->
+  <vm name="s1" type="lxc" arch="x86_64">
+    <filesystem type="cow">../filesystems/rootfs_lxc_ubuntu64-ONOS-SDN-IP</filesystem>
+    <mem>2G</mem>
+    <if id="1" net="net100-1-11"/>
+    <if id="2" net="net100-1-12"/>
+    <if id="3" net="net100-1-13"/>
+    <if id="4" net="net100-1-14"/>
+    <if id="5" net="net100-mgmt2"/>
+    <if id="6" net="net100-ctrl">
+      <ipv4>10.100.10.11/24</ipv4>
+      <ipv6>2001:db8:100:10::11/64</ipv6>
+    </if>
+    <if id="9" net="virbr0">
+      <ipv4>dhcp</ipv4>
+    </if>
+
+    <!-- Copy configuration files -->
+    <filetree seq="on_boot" root="/root/conf/">conf/s1/</filetree>
+
+    <!-- Configure Open vSwitch -->
+    <exec seq="on_boot" type="verbatim">/root/conf/config-ovs.sh</exec>
+  </vm>
+
+  <!-- S2 in AS100 -->
+  <vm name="s2" type="lxc" arch="x86_64">
+    <filesystem type="cow">../filesystems/rootfs_lxc_ubuntu64-ONOS-SDN-IP</filesystem>
+    <mem>2G</mem>
+    <if id="1" net="net100-2-11"/>
+    <if id="2" net="net100-2-12"/>
+    <if id="3" net="net100-2-13"/>
+    <if id="4" net="net100-2-14"/>
+    <if id="5" net="net100-ctrl">
+      <ipv4>10.100.10.12/24</ipv4>
+      <ipv6>2001:db8:100:10::12/64</ipv6>
+    </if>
+    <if id="9" net="virbr0">
+      <ipv4>dhcp</ipv4>
+    </if>
+
+    <!-- Copy configuration files -->
+    <filetree seq="on_boot" root="/root/conf/">conf/s2/</filetree>
+
+    <!-- Configure Open vSwitch -->
+    <exec seq="on_boot" type="verbatim">/root/conf/config-ovs.sh</exec>
+  </vm>
+
+  <!-- S11 in AS100 -->
+  <vm name="s11" type="lxc" arch="x86_64">
+    <filesystem type="cow">../filesystems/rootfs_lxc_ubuntu64-ONOS-SDN-IP</filesystem>
+    <mem>2G</mem>
+    <if id="1" net="net100-101"/>
+    <if id="2" net="net100-1-11"/>
+    <if id="3" net="net100-2-11"/>
+    <if id="4" net="net100-ctrl">
+      <ipv4>10.100.10.111/24</ipv4>
+      <ipv6>2001:db8:100:10::111/64</ipv6>
+    </if>
+    <if id="9" net="virbr0">
+      <ipv4>dhcp</ipv4>
+    </if>
+
+    <!-- Copy configuration files -->
+    <filetree seq="on_boot" root="/root/conf/">conf/s11/</filetree>
+
+    <!-- Configure Open vSwitch -->
+    <exec seq="on_boot" type="verbatim">/root/conf/config-ovs.sh</exec>
+  </vm>
+
+  <!-- S12 in AS100 -->
+  <vm name="s12" type="lxc" arch="x86_64">
+    <filesystem type="cow">../filesystems/rootfs_lxc_ubuntu64-ONOS-SDN-IP</filesystem>
+    <mem>2G</mem>
+    <if id="1" net="net100-102"/>
+    <if id="2" net="net100-1-12"/>
+    <if id="3" net="net100-2-12"/>
+    <if id="4" net="net100-ctrl">
+      <ipv4>10.100.10.112/24</ipv4>
+      <ipv6>2001:db8:100:10::112/64</ipv6>
+    </if>
+    <if id="9" net="virbr0">
+      <ipv4>dhcp</ipv4>
+    </if>
+
+    <!-- Copy configuration files -->
+    <filetree seq="on_boot" root="/root/conf/">conf/s12/</filetree>
+
+    <!-- Configure Open vSwitch -->
+    <exec seq="on_boot" type="verbatim">/root/conf/config-ovs.sh</exec>
+  </vm>
+
+  <!-- S13 in AS100 -->
+  <vm name="s13" type="lxc" arch="x86_64">
+    <filesystem type="cow">../filesystems/rootfs_lxc_ubuntu64-ONOS-SDN-IP</filesystem>
+    <mem>2G</mem>
+    <if id="1" net="net100-1"/>
+    <if id="2" net="net100-1-13"/>
+    <if id="3" net="net100-2-13"/>
+    <if id="4" net="net100-ctrl">
+      <ipv4>10.100.10.113/24</ipv4>
+      <ipv6>2001:db8:100:10::113/64</ipv6>
+    </if>
+    <if id="9" net="virbr0">
+      <ipv4>dhcp</ipv4>
+    </if>
+
+    <!-- Copy configuration files -->
+    <filetree seq="on_boot" root="/root/conf/">conf/s13/</filetree>
+
+    <!-- Configure Open vSwitch -->
+    <exec seq="on_boot" type="verbatim">/root/conf/config-ovs.sh</exec>
+  </vm>
+
+  <!-- S14 in AS100 -->
+  <vm name="s14" type="lxc" arch="x86_64">
+    <filesystem type="cow">../filesystems/rootfs_lxc_ubuntu64-ONOS-SDN-IP</filesystem>
+    <mem>2G</mem>
+    <if id="1" net="net100-2"/>
+    <if id="2" net="net100-1-14"/>
+    <if id="3" net="net100-2-14"/>
+    <if id="4" net="net100-ctrl">
+      <ipv4>10.100.10.114/24</ipv4>
+      <ipv6>2001:db8:100:10::114/64</ipv6>
+    </if>
+    <if id="9" net="virbr0">
+      <ipv4>dhcp</ipv4>
+    </if>
+
+    <!-- Copy configuration files -->
+    <filetree seq="on_boot" root="/root/conf/">conf/s14/</filetree>
+
+    <!-- Configure Open vSwitch -->
+    <exec seq="on_boot" type="verbatim">/root/conf/config-ovs.sh</exec>
+  </vm>
