@@ -80,12 +80,7 @@ Contributors:
     </if>
 
     <!-- Copy configuration files -->
-    <!-- <filetree seq="on_boot" root="/root/conf/">conf/ONOS/</filetree> -->
-
     <filetree seq="on_boot" root="/root/conf/">conf/ONOS/</filetree>
-
-<!--     <filetree seq="on_boot" root="/opt/onos/">conf/ONOS/options</filetree>
- -->    <filetree seq="on_boot" root="/opt/onos/config/network-cfg.json">conf/ONOS/network-cfg_ipv4.json</filetree>
     <filetree seq="on_boot" root="/opt/onos/config/network-cfg_ipv4.json">conf/ONOS/network-cfg_ipv4.json</filetree>
 
     <!-- Configure and Start ONOS (IPv4) -->
@@ -95,18 +90,6 @@ Contributors:
         /root/conf/start-ONOS.sh
     </exec>
 
-    <!-- Configure and Start ONOS (IPv4) -->
-  <!--    <exec seq="start-ipv4" type="verbatim">
-         chmod 777 /root/conf/config-ONOS_ipv4.sh
-        /root/conf/config-ONOS_ipv4.sh
-        nohup /root/conf/start-ONOS.sh
-    </exec> -->
-
-    <!-- Configure and Start ONOS (IPv6) -->
-    <!-- <exec seq="start-ipv6" type="verbatim">
-        /root/conf/config-ONOS_ipv6.sh
-        nohup /root/conf/start-ONOS.sh
-    </exec> -->
   </vm>
 
   <!-- Quagga Server -->
@@ -316,15 +299,10 @@ Contributors:
         /root/conf/start-quagga.sh
     </exec>
   </vm>
-  <!-- switches were here -->
   <host>
     <hostif net="LanMgmt">
       <ipv4>10.100.10.3/24</ipv4>
       <ipv6>2001:db8:100:10::3/64</ipv6>
     </hostif>
   </host>  
-
- 
-
-
 </vnx>
