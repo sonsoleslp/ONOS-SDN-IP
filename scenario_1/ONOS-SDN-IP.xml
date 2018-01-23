@@ -113,8 +113,8 @@ Contributors:
   <vm name="quagga" type="lxc" arch="x86_64">
     <filesystem type="cow">../filesystems/vnx_rootfs_lxc_ubuntu64-16.04-v025-onos-1.11.1</filesystem>
  
-    <if id="1" net="s0"/>
-    <if id="2" net="LanMgmt">
+    <if id="2" net="s0"/>
+    <if id="1" net="LanMgmt">
       <ipv4>10.100.10.2/24</ipv4>
       <ipv6>2001:db8:100:10::2/64</ipv6>
     </if>
