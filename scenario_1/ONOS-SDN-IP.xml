@@ -81,7 +81,7 @@ Contributors:
 
     <!-- Copy configuration files -->
     <filetree seq="on_boot" root="/root/conf/">conf/ONOS/</filetree>
-    <filetree seq="on_boot" root="/opt/onos/config/network-cfg_ipv4.json">conf/ONOS/network-cfg_ipv4.json</filetree>
+    <filetree seq="on_boot" root="/opt/onos/config/network-cfg.json">conf/ONOS/network-cfg.json</filetree>
 
     <!-- Configure and Start ONOS (IPv4) -->
     <exec seq="config-ONOS" type="verbatim">
