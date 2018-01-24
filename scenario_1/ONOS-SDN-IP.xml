@@ -53,19 +53,19 @@ Contributors:
   <net name="s0" mode="openvswitch" hwaddr="00:00:00:00:01:00" controller='tcp:10.100.10.1:6633' of_version="OpenFlow13" fail_mode='secure'/>
   <net name="s1" mode="openvswitch" hwaddr="00:00:00:00:01:01" controller='tcp:10.100.10.1:6633' of_version="OpenFlow13" fail_mode='secure'>
     <connection name='s1-s0' net='s0'/>
-    <connection name='s1-net100-101' net='net100-101'/>
+    <!-- <connection name='s1-net100-101' net='net100-101'/> -->
   </net>
   <net name="s2" mode="openvswitch" hwaddr="00:00:00:00:01:02" controller='tcp:10.100.10.1:6633' of_version="OpenFlow13" fail_mode='secure'>
     <connection name='s2-s0' net='s0'/>
     <connection name='s2-s1' net='s1'/>
-    <connection name='s2-net100-102' net='net100-102'/>
+    <!-- <connection name='s2-net100-102' net='net100-102'/> -->
 
   </net>  
   <net name="s3" mode="openvswitch" hwaddr="00:00:00:00:01:03" controller='tcp:10.100.10.1:6633' of_version="OpenFlow13" fail_mode='secure'>
     <connection name='s3-s0' net='s0'/>
     <connection name='s3-s1' net='s1'/>
     <connection name='s3-s2' net='s2'/>
-    <connection name='s3-net100-103' net='net100-103'/>
+    <!-- <connection name='s3-net100-103' net='net100-103'/> -->
   </net>      
   <!-- ONOS -->
   <vm name="ONOS" type="lxc" arch="x86_64">
@@ -184,7 +184,7 @@ Contributors:
       <ipv4>10.101.0.1/24</ipv4>
       <ipv6>2001:db8:101::1/64</ipv6>
     </if>
-    <if id="2" net="net100-101">
+    <if id="2" net="s1">
       <ipv4>10.100.101.2/24</ipv4>
       <ipv6>2001:db8:100:101::2/64</ipv6>
     </if>
@@ -225,7 +225,7 @@ Contributors:
       <ipv4>10.102.0.1/24</ipv4>
       <ipv6>2001:db8:102::1/64</ipv6>
     </if>
-    <if id="2" net="net100-102">
+    <if id="2" net="s2">
       <ipv4>10.100.102.2/24</ipv4>  
       <ipv6>2001:db8:100:102::2/64</ipv6>
     </if>
@@ -266,7 +266,7 @@ Contributors:
       <ipv4>10.103.0.1/24</ipv4>
       <ipv6>2001:db8:103::1/64</ipv6>
     </if>
-    <if id="2" net="net100-103">
+    <if id="2" net="s3">
       <ipv4>10.100.103.2/24</ipv4>  
       <ipv6>2001:db8:100:103::2/64</ipv6>
     </if>
