@@ -35,32 +35,29 @@ Author:      Raúl Álvarez Pinilla
   <!-- Net102 (10.102.0.0/24) (2001:db8:102::/64) -->
   <net name="net102" mode="openvswitch"/>
   <!-- Net100-XXX (10.100.0.0/24) (2001:db8:100::/64) -->
-  <net name="net100-101" mode="openvswitch"/>
-  <net name="net100-102" mode="openvswitch"/>
-  <net name="net100-1" mode="openvswitch"/> <!-- Net 100-1 (10.100.1.0/24) (2001:db8:100:1:/64)-->
-  <net name="net100-2" mode="openvswitch"/> <!-- Net 100-2 (10.100.2.0/24) (2001:db8:100:2:/64)-->
+  <!--<net name="net100-101" mode="openvswitch"/>-->
+  <!--<net name="net100-102" mode="openvswitch"/>-->
+  <!--<net name="net100-1" mode="openvswitch"/> --><!-- Net 100-1 (10.100.1.0/24) (2001:db8:100:1:/64)-->
+  <!--<net name="net100-2" mode="openvswitch"/>--> <!-- Net 100-2 (10.100.2.0/24) (2001:db8:100:2:/64)-->
   <net name="LanMgmt" mode="virtual_bridge"/>
   <net name="s1" mode="openvswitch" hwaddr="00:00:00:00:00:01" controller='tcp:10.100.10.1:6633' of_version="OpenFlow13" fail_mode='secure'/>
   <net name="s2" mode="openvswitch" hwaddr="00:00:00:00:00:02" controller='tcp:10.100.10.1:6633' of_version="OpenFlow13" fail_mode='secure'/>
   <net name="s11" mode="openvswitch" hwaddr="00:00:00:00:00:11" controller='tcp:10.100.10.1:6633' of_version="OpenFlow13" fail_mode='secure'>
     <connection name='s1-s11' net='s1'/>
     <connection name='s2-s11' net='s2'/>
-    <connection name='s11-net100-101' net='net100-101'/>
+    
   </net>
   <net name="s12" mode="openvswitch" hwaddr="00:00:00:00:00:12" controller='tcp:10.100.10.1:6633' of_version="OpenFlow13" fail_mode='secure'>
     <connection name='s1-s12' net='s1'/>
     <connection name='s2-s12' net='s2'/>
-    <connection name='s12-net100-102' net='net100-102'/>
   </net>
   <net name="s13" mode="openvswitch" hwaddr="00:00:00:00:00:13" controller='tcp:10.100.10.1:6633' of_version="OpenFlow13" fail_mode='secure'>
     <connection name='s1-s13' net='s1'/>
     <connection name='s2-s13' net='s2'/>
-    <connection name='s13-net100-1' net='net100-1'/>
   </net>
   <net name="s14" mode="openvswitch" hwaddr="00:00:00:00:00:14" controller='tcp:10.100.10.1:6633' of_version="OpenFlow13" fail_mode='secure'>
     <connection name='s1-s14' net='s1'/>
     <connection name='s2-s14' net='s2'/>
-    <connection name='s14-net100-2' net='net100-2'/>
   </net>
   <!-- ONOS -->
   <vm name="ONOS" type="lxc" arch="x86_64">
@@ -75,7 +72,7 @@ Author:      Raúl Álvarez Pinilla
       <ipv4>dhcp</ipv4>
     </if>
     <filetree seq="on_boot" root="/root/conf/">conf/ONOS/</filetree>
-
+    <filetree seq="on_boot" root="/opt/onos/config/network-cfg.json">conf/ONOS/network-cfg.json</filetree>
     <exec seq="config-ONOS" type="verbatim">
         echo 'alias onos-client=/opt/onos/karaf/bin/client' >> /root/.bashrc
          chmod 777 /root/conf/start-ONOS.sh
@@ -87,8 +84,8 @@ Author:      Raúl Álvarez Pinilla
   <vm name="quagga" type="lxc" arch="x86_64">
     <filesystem type="cow">../filesystems/vnx_rootfs_lxc_ubuntu64-16.04-v025-onos-1.11.1</filesystem>
     <mem>2G</mem>
-    <if id="1" net="s1"/>
-    <if id="2" net="LanMgmt">
+    <if id="2" net="s1"/>
+    <if id="1" net="LanMgmt">
       <ipv4>10.100.10.2/24</ipv4>
       <ipv6>2001:db8:100:10::2/64</ipv6>
     </if>
@@ -110,7 +107,7 @@ Author:      Raúl Álvarez Pinilla
   <vm name="client-100-1" type="lxc" arch="x86_64">
     <filesystem type="cow">../filesystems/vnx_rootfs_lxc_ubuntu64-16.04-v025-onos-1.11.1</filesystem>
     <mem>2G</mem>
-    <if id="1" net="net100-1">
+    <if id="1" net="s13">
       <ipv4>10.100.1.2/24</ipv4>
       <ipv6>2001:db8:100:1::2/64</ipv6>
     </if>
@@ -129,7 +126,7 @@ Author:      Raúl Álvarez Pinilla
   <vm name="client-100-2" type="lxc" arch="x86_64">
     <filesystem type="cow">../filesystems/vnx_rootfs_lxc_ubuntu64-16.04-v025-onos-1.11.1</filesystem>
     <mem>2G</mem>
-    <if id="1" net="net100-2">
+    <if id="1" net="s14">
       <ipv4>10.100.2.2/24</ipv4>
       <ipv6>2001:db8:100:2::2/64</ipv6>
     </if>
@@ -190,7 +187,7 @@ Author:      Raúl Álvarez Pinilla
       <ipv4>10.101.0.1/24</ipv4>
       <ipv6>2001:db8:101::1/64</ipv6>
     </if>
-    <if id="2" net="net100-101">
+    <if id="2" net="s11">
       <ipv4>10.100.101.2/24</ipv4>
       <ipv6>2001:db8:100:101::2/64</ipv6>
     </if>
@@ -224,7 +221,7 @@ Author:      Raúl Álvarez Pinilla
       <ipv4>10.102.0.1/24</ipv4>
       <ipv6>2001:db8:102::1/64</ipv6>
     </if>
-    <if id="2" net="net100-102">
+    <if id="2" net="s12">
       <ipv4>10.100.102.2/24</ipv4>  
       <ipv6>2001:db8:100:102::2/64</ipv6>
     </if>
