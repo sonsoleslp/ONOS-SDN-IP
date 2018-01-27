@@ -28,20 +28,12 @@ Author:      Raúl Álvarez Pinilla
   </global>
 
   <!-- NET DEFINITION -->
-  <!-- virbr0 (192.168.122.0/24) -->
   <net name="virbr0" mode="virtual_bridge" managed="no"/>
-  <!-- Net101 (10.101.0.0/24) (2001:db8:101::/64) -->
   <net name="net101" mode="openvswitch"/>
-  <!-- Net102 (10.102.0.0/24) (2001:db8:102::/64) -->
   <net name="net102" mode="openvswitch"/>
-  <!-- Net100-XXX (10.100.0.0/24) (2001:db8:100::/64) -->
-  <!--<net name="net100-101" mode="openvswitch"/>-->
-  <!--<net name="net100-102" mode="openvswitch"/>-->
-  <!--<net name="net100-1" mode="openvswitch"/> --><!-- Net 100-1 (10.100.1.0/24) (2001:db8:100:1:/64)-->
-  <!--<net name="net100-2" mode="openvswitch"/>--> <!-- Net 100-2 (10.100.2.0/24) (2001:db8:100:2:/64)-->
   <net name="LanMgmt" mode="virtual_bridge"/>
-  <net name="s1" mode="openvswitch" hwaddr="00:00:00:00:00:01" controller='tcp:10.100.10.1:6633' of_version="OpenFlow13" fail_mode='secure'/>
-  <net name="s2" mode="openvswitch" hwaddr="00:00:00:00:00:02" controller='tcp:10.100.10.1:6633' of_version="OpenFlow13" fail_mode='secure'/>
+  <net name="s1"  mode="openvswitch" hwaddr="00:00:00:00:00:01" controller='tcp:10.100.10.1:6633' of_version="OpenFlow13" fail_mode='secure'/>
+  <net name="s2"  mode="openvswitch" hwaddr="00:00:00:00:00:02" controller='tcp:10.100.10.1:6633' of_version="OpenFlow13" fail_mode='secure'/>
   <net name="s11" mode="openvswitch" hwaddr="00:00:00:00:00:11" controller='tcp:10.100.10.1:6633' of_version="OpenFlow13" fail_mode='secure'>
     <connection name='s1-s11' net='s1'/>
     <connection name='s2-s11' net='s2'/>
